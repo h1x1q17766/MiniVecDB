@@ -1,0 +1,41 @@
+#include<iostream>
+#include<sstream>
+#include<unordered_map>
+int main(){
+      std::unordered_map<std::string,std::string> store;
+      std::string line;
+      while(std::getline(std::cin,line)){
+           std::stringstream ss(line);
+           std::string cmd,key,value;
+           ss>>cmd;
+           if(cmd=="SET"){
+                ss>>key>>value;
+                if(ss.empty()||value.empty()){
+                   std::cout<<"ERR wrong number of arguments"<<std::endl;
+               }else{
+                    store[key]=value;
+                    std::cout<<"OK"<<std::endl;
+                     }
+                         }
+           else if(cmd=="GET"){
+                 ss>>key;
+                 if(store.find(key)!=store.end()){
+                      std::cout<<store[key]<<std::endl;}
+                 else{
+                     std::cout<<"(nil)"<<std::endl;}
+                              }
+           else if(cmd=="DEL"){
+                ss>>key;
+                if(store.erase(key)){
+                   std::cout<<"OK"<<std::endl;}
+                else{
+                     std::cout<<"(nil)"<<std::endl;
+                     }
+                               }
+           else if(cmd=="EXIT"){
+                  break;}
+           else{
+                std::cout<<"ERR unknown command"<<std::endl;}
+                               }
+           return 0;
+}
